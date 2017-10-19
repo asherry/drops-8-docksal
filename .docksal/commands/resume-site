@@ -23,19 +23,17 @@ SITEDIR_PATH="${DOCROOT_PATH}/sites/${SITE_DIRECTORY}"
 # Fix file/folder permissions
 fix_permissions ()
 {
-	echo "Making site directory writable..."
-	chmod 755 "${SITEDIR_PATH}"
+  echo "Making site directory writable..."
+  chmod 755 "${SITEDIR_PATH}"
 }
 
 # Install site
 site_install ()
 {
-	cd $DOCROOT_PATH
+  cd $DOCROOT_PATH
+  # We disable email sending here so site-install does not return an error
+  PHP_OPTIONS="-d sendmail_path=`which true`" drupal site:install config_installer --langcode='en' --site-name="$DRUPAL_SITE_NAME" --site-mail="$DRUPAL_SITE_MAIL" --account-name="$DRUPAL_ACCOUNT_NAME" --account-mail="$DRUPAL_ACCOUNT_MAIL" --account-pass="$DRUPAL_ACCOUNT_PASS"
 
-  # TODO: Fix this to be done by a drupal scaffold customization.
-  fin exec "cd /var/www/web; wget -O .htaccess http://cgit.drupalcode.org/drupal/plain/.htaccess?h=8.4.x"
-	# We disable email sending here so site-install does not return an error
-	PHP_OPTIONS="-d sendmail_path=`which true`" drupal site:install config_installer --langcode='en' --site-name='HFNY' --site-mail="alan.sherry@freeflowdigital.com" --account-name="admin" --account-mail="alan.sherry@freeflowdigital.com" --account-pass="admin"
 }
 
 #-------------------------- END: Functions --------------------------------

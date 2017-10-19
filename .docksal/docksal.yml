@@ -1,0 +1,10 @@
+version: "2.1"
+
+services:
+  cli:
+    environment:
+      - DRUPAL_SITE_NAME
+      - DRUPAL_SITE_MAIL
+      - DRUPAL_ACCOUNT_NAME
+      - DRUPAL_ACCOUNT_PASS
+      - DRUPAL_ACCOUNT_MAIL

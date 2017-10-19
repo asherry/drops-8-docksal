@@ -60,6 +60,9 @@ fin init-drupal
 # This runs inside cli using http://docs.docksal.io/en/v1.4.0/fin/custom-commands/#executing-commands-inside-cli
 fin resume-site
 
+# TODO: Fix this to be done by a drupal scaffold customization.
+fin exec "cd /var/www/web; wget -O .htaccess http://cgit.drupalcode.org/drupal/plain/.htaccess?h=8.4.x"
+
 echo -en "${green_bg} DONE! ${NC} "
 echo -e "Open ${yellow}http://${VIRTUAL_HOST}${NC} in your browser to verify the setup."
 
