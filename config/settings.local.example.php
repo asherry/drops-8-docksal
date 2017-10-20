@@ -125,7 +125,10 @@ $databases['default']['default'] = array (
   'database' => 'default',
   'username' => 'user',
   'password' => 'user',
+  'prefix' => '',
   'host' => 'db',
+  'port' => '3306',
+  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
 );
 
@@ -150,3 +153,12 @@ if (PHP_SAPI !== 'cli') {
     $_SERVER['SERVER_PORT'] = 443;
   }
 }
+
+$settings['install_profile'] = 'config_installer';
+
+/**
+ * Place the config directory outside of the Drupal root.
+ */
+$config_directories = array(
+  CONFIG_SYNC_DIRECTORY => '/var/www/config/default',
+);
