@@ -45,9 +45,7 @@ private_files
 /vendor/
 /web/core
 /web/core/
-/web/modules/custom
 /web/modules/contrib/
-/web/themes/custom
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/private/scripts/quicksilver
