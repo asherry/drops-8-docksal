@@ -20,16 +20,8 @@ include __DIR__ . "/settings.pantheon.php";
  * Place the config directory outside of the Drupal root.
  */
 $config_directories = array(
-  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config',
+  CONFIG_SYNC_DIRECTORY => dirname(DRUPAL_ROOT) . '/config/default',
 );
-
-/**
- * If there is a local settings file, then include it
- */
-$local_settings = __DIR__ . "/settings.local.php";
-if (file_exists($local_settings)) {
-  include $local_settings;
-}
 
 /**
  * Always install the 'standard' profile to stop the installer from
@@ -38,3 +30,11 @@ if (file_exists($local_settings)) {
  * See: tests/installer-features/installer.feature
  */
 $settings['install_profile'] = 'standard';
+
+/**
+ * If there is a local settings file, then include it
+ */
+$local_settings = __DIR__ . "/settings.local.php";
+if (file_exists($local_settings)) {
+  include $local_settings;
+}

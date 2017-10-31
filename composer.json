@@ -1,32 +1,52 @@
 {
-  "name": "pantheon-systems/example-drops-8-composer",
-  "description": "Install drops-8 with Composer on Pantheon.",
+  "name": "freeflowdigital/drupal8-advanced",
+  "description": "Install drops-8 with Composer on Pantheon and Docksal.",
   "type": "project",
   "license": "MIT",
+  "version": "1.0.0-beta",
   "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "version": "combine-user-contact-form-dev",
+        "name": "freeflow/redhen",
+        "type": "drupal-module",
+        "source": {
+          "url": "https://github.com/FreeflowDigital/redhen.git",
+          "type": "git",
+          "reference": "combine-user-contact-form"
+        }
+      }
+    },
     {
       "type": "composer",
       "url": "https://packages.drupal.org/8"
     }
+
   ],
-    "require": {
+  "require": {
     "composer/installers": "^1.0.20",
     "cweagans/composer-patches": "^1.0",
     "drupal-composer/drupal-scaffold": "^2.0.1",
     "drupal/config_direct_save": "^1.0",
     "drupal/config_installer": "^1.0",
     "drupal/console": "^1",
-    "drupal/core": "^8",
+    "drupal/core": "8.4.x-dev",
+    "roave/security-advisories": "dev-master",
     "drupal/simple_block": "^1.0@beta",
-    "drush/drush": "~8",
+    "drush/drush": "^8",
     "rvtraveller/qs-composer-installer": "^1.1",
-    "webflo/drupal-core-strict": "^8"
+    "oomphinc/composer-installers-extender": "^1.1",
+    "webflo/drupal-core-strict": "^8",
+    "drupal/bootstrap": "^3.5",
+    "twbs/bootstrap-sass": "3.x.x"
   },
   "require-dev": {
     "mikey179/vfsstream": "^1.2",
     "behat/behat": "3.*",
     "behat/mink": "^1.7",
     "behat/mink-extension": "^2.2",
+    "drush/drush": "^8",
     "behat/mink-goutte-driver": "^1.2",
     "jcalderonzumba/gastonjs": "^1.0.2",
     "jcalderonzumba/mink-phantomjs-driver": "^0.3.1",
@@ -34,12 +54,15 @@
     "drush-ops/behat-drush-endpoint": "^0.0.4",
     "pantheon-systems/quicksilver-pushback": "~1",
     "phpunit/phpunit": "^4.8",
-    "symfony/css-selector": "^2.8"
+    "drupal/coder": "^8.2",
+    "drupal/devel": "1.x-dev",
+    "symfony/css-selector": "^2.8",
+    "phpmd/phpmd": "~2.1"
   },
   "conflict": {
       "drupal/drupal": "*"
   },
-  "minimum-stability": "alpha",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "autoload": {
     "classmap": [
@@ -85,7 +108,7 @@
       "export-configuration": "drush config-export --yes"
     },
     "drupal-scaffold": {
-      "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8/{version}/{path}",
+      "source": "https://raw.githubusercontent.com/pantheon-systems/drops-8/8.4.0/{path}",
       "includes": [
         "sites/default/default.services.pantheon.preproduction.yml",
         "sites/default/settings.pantheon.php"

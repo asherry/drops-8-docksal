@@ -54,6 +54,7 @@ class ScriptHandler
   // is not used in the GitHub PR workflow.
   public static function prepareForPantheon()
   {
+    self::removeDrushConfig();
     // Get rid of any .git directories that Composer may have added.
     // n.b. Ideally, there are none of these, as removing them may
     // impair Composer's ability to update them later. However, leaving
@@ -79,5 +80,27 @@ class ScriptHandler
     $gitignoreContents = file_get_contents($gitignoreFile);
     $gitignoreContents = preg_replace('/.*::: cut :::*/s', '', $gitignoreContents);
     file_put_contents($gitignoreFile, $gitignoreContents);
+  }
+
+  public static function removeDrushConfig() {
+    $drushConfig = getcwd() . '/drush/drushrc.php';
+    self::deleteFile($drushConfig);
+  }
+
+  public static function deleteFile($file) {
+    if (is_dir($file)) {
+      unlink($file);
+    }
+  }
+
+  public static function deleteTree($dir) {
+    if (!is_dir($dir)) {
+      return FALSE;
+    }
+    $files = array_diff(scandir($dir), array('.','..'));
+    foreach ($files as $file) {
+      (is_dir("$dir/$file")) ? delTree("$dir/$file") : unlink("$dir/$file");
+    }
+    return rmdir($dir);
   }
 }

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+## Builds a complete copy of site ready for deployment
+##
+## Usage: fin package
+##
+## PKG_PATH defined in .docksal/docksal.env defaults to PROJECT_ROOT/package
+
+# Abort on errors.
+set -e
+
+# Make sure there is a build directory.
+if [ ! -d "$PKG_PATH" ]; then
+  mkdir "$PKG_PATH";
+fi
+
+echo " >> Installing composer dependencies to $PKG_PATH."
+cp $PROJECT_ROOT/composer.json $PKG_PATH
+cd $PKG_PATH
+composer install --no-dev
+echo $''
+
+# Copy custom modules if they exist.
+if ls $SRC_PATH/modules/* 1> /dev/null 2>&1; then
+  echo " >> Copying custom modules."
+  rsync -ah --exclude=".gitkeep" $SRC_PATH/modules/ $PKG_PATH/docroot/modules/custom
+fi
+
+# Copy custm themes if they exist.
+if ls $SRC_PATH/themes/* 1> /dev/null 2>&1; then
+  echo " >> Copying custom themes."
+  rsync -ah --exclude=".gitkeep" $SRC_PATH/themes/ $PKG_PATH/docroot/themes/custom
+fi
+
+# @TODO: copy profiles
+# @TODO: rebuild theme assets
+
+echo " >> Cleaning up."
+rm -f $PKG_PATH/docroot/sites/development.services.yml
+rm -f $PKG_PATH/docroot/sites/example.*
+rm -f $PKG_PATH/docroot/sites/default/default.*
+
+echo "## Packaging complete."
